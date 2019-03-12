@@ -1,0 +1,27 @@
+ /*���ڷ�ҳ��css��ʽ*/
+.bold{font-weight:500;}
+.divBody {line-height: 35px;width: 100%;margin-top:10px;margin-bottom:30px;text-align:right;}
+.divContent{line-height:26px;text-align: right;margin: 10px 0px;}
+.divContent a{text-decoration:none;}
+.aBtn,.spanApostrophe{border:1px solid #979797;border-radius:3px;margin:0 5px;text-align:center;background:#FcFcFc;color:#666;display:inline-block;padding:0 8px;}
+.aBtn{cursor:pointer;}
+.aBtn:hover,.spanBtnSelected,.aBtn:active{border:1px solid #E80D1F;color:#E80D1F;}
+.preBtn{margin-right:8px;}
+.nextBtn{margin-left:8px;}
+.aBtn span{width:10px;height:10px;display:inline-block;background:url("../images/menuIcon.svg") -645px -23px no-repeat;}
+.preBtn span{}
+.nextBtn span{background-position:-654px -23px;}
+.preBtn:hover span{background-position:-665px -23px;}
+.nextBtn:hover span{background-position:-672px -23px;}
+.spanBtnDisabled{background:#fff;border-color:#eee;color:#ddd;}
+.spanBtnDisabled:hover{background:#fff;border-color:#eee;color:#ddd;}
+.spanBtnDisabled.preBtn span{background-position:-685px -23px;}
+.spanBtnDisabled.nextBtn span{background-position:-692px -23px;}
+
+.inputPagecode{border:1px solid #979797;border-radius:3px;text-align:center;background:#FcFcFc;color:#666;display:inline-block;line-height:26px;width:30px;outline:none;}
+.inputPagecode:focus{border:1px solid #E80D1F;}
+.aSubmit{border: 1px solid #979797;border-radius:3px;padding: 4px 8px 6px 8px;color:#666;text-decoration:none;cursor: pointer;}
+.aSubmit:HOVER{border:1px solid #E80D1F;color:#E80D1F;}
+#pageSize{display:none;}
+#pageSize+span{display:none;} 
+/*css��ʽ end*/

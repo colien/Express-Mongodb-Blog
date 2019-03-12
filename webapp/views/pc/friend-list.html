@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <script type="text/javascript" src="/js/cookieUtil.js"></script>
+    <style type="text/css">
+        #typeContail{
+            display:none;
+        }
+        .blogList{width:60%;margin:10px auto;padding:5px;border:1px solid #ccc;}
+    </style>
+</head>
+<body>
+<div id="Ebody">
+    
+</div>
+<script type="text/javascript">
+$(function (){
+    getAllFriend();
+})
+
+//获取所有博客类型
+function getAllFriend(){
+    $.ajax({
+        url:"/getAllFriend",
+        type:"get",
+        data:{},
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var arrRecord=data.extra;
+                for(var i = 0;i<arrRecord.length;i++){
+                	var recordHtml = "<div class='blogList' blogId='"+arrRecord[i].id+"' onclick='toBlogDetail(this)'>";
+                    recordHtml += "<div>"+arrRecord[i].friend_id+"</div>";
+                    recordHtml += "<div>"+arrRecord[i].create_time+"</div>";
+	                recordHtml += "</div>";
+	                $("#Ebody").append(recordHtml);
+                }
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert("获取博客失败");
+        }
+    });
+}
+
+var toBlogDetail = function (obj){
+	var blogId = $(obj).attr("blogId");
+	window.location.href = "/blog-detail?blogId="+blogId;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>我的主页</title>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <script type="text/javascript" src="/js/cookieUtil.js"></script>
+    <style type="text/css">
+        .userInfo{border-bottom:1px solid #ddd;width:60%;margin:10px auto;}
+        .blog-item{border:1px solid #ccc;width:60%;margin:10px auto;}
+    </style>
+</head>
+<body>
+<div id="Ebody">
+    <div class="userInfo">
+        
+    </div>
+    <div class="blog-list">
+
+    </div>
+
+</div>
+<script type="text/javascript">
+
+
+$(function(){
+    getUserInfo();
+    getCurrUserBlog();
+})
+
+function getUserInfo(){
+    $.ajax({
+        url:"/getUserInfo",
+        type:"get",
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var userInfo = data.extra[0];
+                var html = "<img class='' src='/avatar/"+userInfo.user_img+"'/>";
+                html += "<div class=''>"+userInfo.username+"</div>";
+                html += "<div class=''>"+userInfo.nickname+"</div>";
+                html += "<div class=''>"+userInfo.description+"</div>";
+                $(".userInfo").html(html);
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert("获取用户信息失败");
+        }
+    });
+}
+
+function getCurrUserBlog(){
+    $.ajax({
+        url:"/getCurrUserBlog",
+        type:"get",
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var blogList = data.extra;
+                for(var i=0;i<blogList.length;i++){
+                    var html = "<div class='blog-item' id='"+blogList[i]._id+"'>";
+                    html += "<div calss=''>用户名："+blogList[i].username+"</div>";
+                    html += "<div calss=''>标题："+blogList[i].title+"</div>";
+                    html += "<div calss=''>内容："+blogList[i].content+"</div>";
+                    html += "<div calss=''>分类："+blogList[i].tyle_id+"</div>";
+                    html += "<div calss=''>创建时间："+blogList[i].create_time+"</div>";
+                    html += "</div>";
+                    $(".blog-list").append(html);
+                }
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert("获取当前用户的博客失败");
+        }
+    });
+}
+
+</script>
+</body>
+</html>

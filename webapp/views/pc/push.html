@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <script type="text/javascript" src="/js/cookieUtil.js"></script>
+    <style type="text/css">
+        #typeContail{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="Ebody">
+    博客分类：<select id="blog-type">
+        </select>
+        <button id="addType" value="添加分类">添加分类</button>
+    <br>
+    标题：<input type="text" id="title"/>
+    <br>
+    内容：<input type="text" id="content"/>
+    <br>
+    公开：<input type="radio" class="privacy" value="0" checked>
+    <br>
+    私密：<input type="radio" class="privacy" value="1">
+    <button id="push" value="发布">发布</button>
+    <p id="errorInfo"></p>
+    <br>
+    <br>
+    <div id="typeContail">
+        <input type="text" name="type_name" id="type_name"/>
+        <button id="addTyleBut" value="提交">提交</button>
+    </div>
+</div>
+<script type="text/javascript">
+$(function (){
+    getAllType();
+})
+$("#push").click(function(){
+    var tyle_id = $.trim($("#blog-type").val());
+    var title = $.trim($("#title").val());
+    var content = $.trim($("#content").val());
+    var privacy = $.trim($("#privacy").val());
+    $.ajax({
+            url:"/doPush",
+            type:"POST",
+            data:{
+                tyle_id:tyle_id,
+                title:title,
+                content : content,
+                privacy : privacy
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.code == 0){
+                    alert("发布成功");
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function(){
+                alert("发布失败");
+            }
+        });
+})
+
+$("#addType").click(function(){
+    $("#typeContail").show();
+})
+
+$("#addTyleBut").click(function(){
+    addTypeReq();
+})
+
+function addTypeReq(){
+    var type = $.trim($("#type_name").val());
+    $.ajax({
+            url:"/doType",
+            type:"POST",
+            data:{
+                type_name:type
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.code == 0){
+                    alert("添加成功");
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function(){
+                alert("创建分类失败");
+            }
+        });
+}
+
+//获取所有博客类型
+function getAllType(){
+    $.ajax({
+        url:"/getAllType",
+        type:"get",
+        data:{},
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var arrType=data.extra;
+                for(var i = 0;i<arrType.length;i++){
+                    $("#blog-type").append("<option value='"+arrType[i].id+"'>"+arrType[i].type_name+"</option>");
+                }
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert(data.msg);
+        }
+    });
+}
+
+</script>
+</body>
+</html>

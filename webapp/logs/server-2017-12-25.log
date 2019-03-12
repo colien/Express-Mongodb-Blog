@@ -1,0 +1,2 @@
+[2017-12-25 21:09:28.157] [INFO] cheese - 127.0.0.1 - - "POST /doRegister?username=&password=&repeatPassword= HTTP/1.1" 404 68 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"
+[2017-12-25 21:11:23.459] [INFO] cheese - 127.0.0.1 - - "POST /doRegist HTTP/1.1" 200 414 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"

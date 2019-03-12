@@ -1,0 +1,482 @@
+
+
+<!doctype html>
+<html>
+<head>
+	<title>首页</title>
+	<link href="/css/header.css" rel="stylesheet">
+	<link href="/css/page-2.0.css" rel="stylesheet">
+	<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/js/underscore-noflect.js"></script>
+	<script type="text/javascript" src="/js/jsUtils-1.0.1.js"></script>
+	<script type="text/javascript" src="/js/page-2.0.js"></script>
+	<style type="text/css">
+
+		/*banner start*/
+		.banner{width:100%;height:384px;margin: 1px 0px;}
+		.banner .b_bg{height:384px;background:#4E4D9B;}
+		.banner .b_bg .b_con{height:84px;margin:0 auto;}
+		.banner .b_bg .b_con .b_focus{height:384px;margin:0 auto;overflow:hidden;position:relative;}
+		.banner .b_bg .b_con .b_focus ul li{list-style:none;}
+		
+		/*b_btn start*/
+		.banner .b_bg .b_con .b_focus .b_btn{width:136px;height:24px;position:absolute;bottom:10px;left:50%;margin-left:-68px;}
+		.banner .b_bg .b_con .b_focus .b_btn ul{background:#000;display:inline-block;padding: 7px 28px;border-radius:12px;opacity:0.4;filter:alpha(opacity=40);}
+		.banner .b_bg .b_con .b_focus .b_btn ul li{list-style:none;float:left;width:8px;height:8px;border:1px solid #fff;margin:0 3px;border-radius:4px;cursor: pointer;}
+		.no{background:#fff;}
+		/*end b_btn*/
+
+		/*b_ear start*/
+		.banner .b_bg .b_con .b_focus .b_ear{width:46px;height:70px;display:block;position:absolute;top:147px;background:url("/images/icon.png") no-repeat;display:none;}
+		.banner .b_bg .b_con .b_focus .pre{left:10%;background-position:-73px 0;}
+		.banner .b_bg .b_con .b_focus .pre:hover{background-position:-171px 0;}
+		.banner .b_bg .b_con .b_focus .next{right:10%;background-position:-124px 0;}
+		.banner .b_bg .b_con .b_focus .next:hover{background-position:-1px -57px;}
+		.banner .b_bg .b_con .b_focus:hover .b_ear{display:block;}
+		/*end b_ear*/
+		
+		/*登录部分*/
+		.content {position:relative;background: url("/images/com_3.png") no-repeat;transition: background-image 1s ease-in;}
+		#login {display:none;border: 2px solid;border-color: #F40 #DEDEDE #DEDEDE;padding: 20px 30px 30px;width: 250px;float: right;margin: 12px 10% 40px 0px;color: #666;position: absolute;height: 300px;top:0px;right:0px;}
+		#login .login-yy {background: #000;opacity: 0.5;filter: alpha(opacity = 50);position: absolute;top: 0;left: 0;width: 310px;height: 350px;}
+		#login .con-login {position: absolute;top: 0;left: 0;width: 310px;height: 300px;}
+		#login #login-box {width: 250px;height: 300px;margin: 20px auto;}
+		#login #login-box .login-top {width: 250px;overflow: hidden;}
+		#login #login-box .login-top .title {text-align: left;color: #fefefe;font-size: 16px;border-bottom: 2px solid #dedede;width: 100%;padding-bottom: 8px;}
+		#login #login-main {width: 250px;}
+		#login #login-main .show-photo {background: #ccc none repeat scroll 0 0;color: #fff;display: block;height: 35px;line-height: 35px;outline: 0 none;position: absolute;text-align: center;width: 35px;}
+		#login #login-main .txt {border: 1px solid #dedede;height: 34px;line-height: 38px;padding-left: 45px;vertical-align: middle;width: 202px;}
+		#login #checkname {margin-top: 20px;position: relative;}
+		#login #checkname #show-photo-id {background-image: url(/images/username.png);}
+		#login #checkpwd {margin-top: 20px;position: relative;}
+		#login #checkpwd #show-photo-pwd {background-image: url(/images/password.png);}
+		#login #login-main #showerr {margin-top: 10px;height: 30px;line-height: 30px;}
+		#login #login-main #showerr #err {display: none;background: #eee none repeat scroll 0 0;height: 30px;line-height: 30px;color: red;text-align: center;font-size: 14px;}
+		#login #login-main .login-link {margin-top: 12px;overflow: hidden;}
+		#login #login-main .login-link .a-pwd {font: 12px/1.5;float: left;color: #fefefe;}
+		#login #login-main .login-link .a-pwd:hover {color: red;text-decoration: underline;}
+		#login #login-main .login-link .a-reg {float: right;color: #fefefe;}
+		#login #login-main .login-link .a-reg:hover {color: red;text-decoration: underline;}
+		#login #btn-login {margin-top: 13px;}
+		#login #submitLogin {background: red;border: 0 none;border-radius: 3px;color: #fff;cursor: pointer;display: inline-block;font-size: 16px;font-weight: 700;height: 37px;line-height: 36px;overflow: hidden;vertical-align: middle;width: 250px;}
+		#submitLogin:hover {background: #e50e0e;}
+
+		/*end banner*/
+		.blog_centent{width:1024px;margin:10px auto 70px auto;background: #fefefe;;}
+		.blog_centent li{width:327px;height:150px;margin:10px 7px;float:left;position:relative;}
+		.item{border:1px solid #eee;width:100%;height:150px;position:absolute;top:0px;left:0px;}
+		.item:hover{border:1px solid #ccc;background:#fafafa;top:-5px;cursor:pointer;}
+		.item .content_head{height:70px;}
+		.item .content_head .userImg{margin: 10px;float: left;}
+		.item .content_head .userAndDate{display:inline-block;width:267px;color:#333;float:left;height: 60px;padding-top: 10px;}
+		.blogtitle{font-size: 16px;height: 25px;}
+		.userName{width: 133px;float: left;color: #aaa;}
+		.postDate{width: 123px;float: right;color: #aaa;text-align: right;padding-right: 10px;}
+		.centent_body{padding: 15px 10px; line-height: 25px;text-indent: 30px;width: 100%; height: 80px;}
+		.row{width: 1024px;margin: 56px auto;}
+		.userNameshow{vertical-align: top;font-size: 14px; padding: 0px 10px;}
+		#content{border:1px solid #eee;width: 500px;height: 150px;margin:20px 0px;line-height: 22px;text-indent: 20px;padding: 10px;}
+		#content:focus{outline:none;border:1px solid #ddd;}
+		.btn {border:1px solid #ddd;border-radius:3px;width:80px;height:28px;line-height:26px;background: #ddd;color:#fff;cursor:pointer;}
+		.btn:focus{outline:none;}
+		.btn:hover{background:#ccc;}
+		.pagination{width:1024px;margin:0px auto;}
+	</style>
+</head>
+<body>
+<% include header.ejs %>
+
+<div class="body">
+<% if(!login){ %>
+	<div class="content">
+		<!--banner start-->
+		<div class="banner">
+			<div class="b_bg">
+				<div class="b_con">
+					<!--b_focus start-->
+					<div class="b_focus">
+						<!--b_pic start-->
+						<ul id="b_pic">
+							<li><a href="#"><img src="/images/com_3.png" alt="小博客" width="100%" height="384"/></a></li>
+							<li><a href="#"><img src="/images/com_1.png" alt="小博客" width="100%" height="384"/></a></li>
+							<li><a href="#"><img src="/images/com_2.png" alt="小博客" width="100%" height="384"/></a></li>
+						</ul>
+						<!--end b_pic-->
+						<!--b_btn start-->
+						<div class="b_btn">
+							<ul id="b_btn_mini">
+								<li data-color="#4E4D9B" class="no"></li>
+								<li data-color="#A136D2"></li>
+								<li data-color="#6766CE"></li>
+							</ul>
+						</div>
+						<!--end b_btn-->
+						<!--b_ear start-->
+						<a href="#" class="b_ear pre"></a>
+						<a href="#" class="b_ear next"></a>
+						<!--end b_ear-->
+
+					</div>
+					<!--end b_focus-->
+				</div>
+			</div>
+		</div>
+		<!--end banner-->
+		<!--登录部分-->
+		
+
+		<div id="login"  class="magictime tinLeftIn">
+			<div class="login-yy"></div>
+			<div class="con-login">
+				<div id="login-box">
+					<div class="login-top">
+						<h2 id="user-login" class="title">用户登录</h2>
+					</div>
+					<div id="login-main">
+						<form class="login-txt" id="loginForm" action="/dologin" method="post">
+							<div id="checkname">
+								<label class="show-photo" id="show-photo-id">
+									<i id="pohto-id" class="photo"></i>
+								</label>
+								<input id="username" name="username" class="txt" type="text" tabindex="1" maxlength="20" value="" placeholder="请输入账号"/>
+							</div>
+							<div id="checkpwd">
+								<label class="show-photo" id="show-photo-pwd">
+									<i id="photo-pwd" class="photo"></i>
+								</label>
+								<input id="passwd" name="passwd" class="txt" type="password" tabindex="1" maxlength="20" value="" placeholder="请输入密码"/>                           
+							</div>
+							<div id="showerr"><div id="err"></div></div>
+							<div class="login-link">
+								<a href="javascript:;" title="忘记密码" class="a-pwd">忘记密码？</a>
+								<a href="javascript:;" title="注册请拨打电话：XXXXXXXXXXXXXXXXXX" class="a-reg">注册</a>
+							</div>
+							<div class="clear"></div>
+							<div id="btn-login">
+								<input type="button" id="submitLogin" value="登录">
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>  
+		<div class="clear"></div>
+		<% }else{ %>
+		<!-- 登陆之后，显示发言框-->
+		<div class="container">
+				<div class="row">
+				<div class="col-lg-1">
+					<a href="/setavatar"><img class="avatar" src="/avatar/<%= avatar %>" alt=""/></a>
+					<span class="userNameshow"><%= username %></span>
+				</div>
+				<textarea name="content" id="content" cols="80" rows="4"></textarea>
+				<p><button type="button" id="fabiao" class="btn btn-success">发表说说</button></p>
+			</div>
+		</div>
+		<% } %>
+	</div>
+	<!-- 分页条-->
+    <nav>
+        <ul class="pagination">
+
+        </ul>
+    </nav>
+    <script type="text/javascript">
+        //分页条的Ajax
+        $.get("/getshuoshuoamount", function (result) {
+		var amount = parseInt(result);
+		doPage(amount,1,20,".pagination","",false);
+            //总页数
+           /* pageamount = Math.ceil(amount / 20);
+            for (var i = 0; i < pageamount; i++) {
+                $(".pagination").append("<li><a href='javascript:void(0);'>" + i + "</a></li>");
+            }
+            $(".pagination li:first").addClass("active");
+            //监听
+            $(".pagination li").click(function () {
+                var page = $(this).index();
+                getData(page,20);
+                $(this).addClass("active").siblings().removeClass("active");
+            });*/
+        })
+    </script>
+    <!-- 分页条-->
+  
+	<!--end 登录部分-->
+	<div class="blog_centent">
+		<ul class="blog_list">
+			<li>
+			<div class="item">
+				<div class="content_head">
+					<img class="userImg"  src="/images/default.jpg" alt="用户图像" width="40" height="40"/>
+					
+					<div class="userAndDate">
+					<div class="blogtitle">如何搭建 NodeJs 框架</div>
+					<div class="userName">colien.cheng</div>
+					<div class="postDate">2017年01月10号</div>
+					</div>
+					<p class="clear">
+					</p>
+				</div>
+				<div class="centent_body">
+					1. 首先我们要去官网下载 Nodejs 包。2. 然后安装软件。3. 安装完成之后我们要配置环境变量。
+				</div>
+			</div>
+			</li>
+			<li>
+			<div class="item">
+				<div class="content_head">
+					<img class="userImg"  src="/images/default.jpg" alt="用户图像" width="40" height="40"/>
+					
+					<div class="userAndDate">
+					<div class="blogtitle">如何搭建 NodeJs 框架</div>
+					<div class="userName">colien.cheng</div>
+					<div class="postDate">2017年01月10号</div>
+					</div>
+					<p class="clear">
+					</p>
+				</div>
+				<div class="centent_body">
+					1. 首先我们要去官网下载 Nodejs 包。2. 然后安装软件。3. 安装完成之后我们要配置环境变量。
+				</div>
+			</div>
+			</li>
+			<li>
+			<div class="item">
+				<div class="content_head">
+					<img class="userImg"  src="/images/default.jpg" alt="用户图像" width="40" height="40"/>
+					
+					<div class="userAndDate">
+					<div class="blogtitle">如何搭建 NodeJs 框架</div>
+					<div class="userName">colien.cheng</div>
+					<div class="postDate">2017年01月10号</div>
+					</div>
+					<p class="clear">
+					</p>
+				</div>
+				<div class="centent_body">
+					1. 首先我们要去官网下载 Nodejs 包。2. 然后安装软件。3. 安装完成之后我们要配置环境变量。
+				</div>
+			</div>
+			</li>
+			<li>
+			<div class="item">
+				<div class="content_head">
+					<img class="userImg"  src="/images/default.jpg" alt="用户图像" width="40" height="40"/>
+					
+					<div class="userAndDate">
+					<div class="blogtitle">如何搭建 NodeJs 框架</div>
+					<div class="userName">colien.cheng</div>
+					<div class="postDate">2017年01月10号</div>
+					</div>
+					<p class="clear">
+					</p>
+				</div>
+				<div class="centent_body">
+					1. 首先我们要去官网下载 Nodejs 包。2. 然后安装软件。3. 安装完成之后我们要配置环境变量。
+				</div>
+			</div>
+			</li>
+			<li>
+			<div class="item">
+				<div class="content_head">
+					<img class="userImg"  src="/images/default.jpg" alt="用户图像" width="40" height="40"/>
+					
+					<div class="userAndDate">
+					<div class="blogtitle">如何搭建 NodeJs 框架</div>
+					<div class="userName">colien.cheng</div>
+					<div class="postDate">2017年01月10号</div>
+					</div>
+					<p class="clear">
+					</p>
+				</div>
+				<div class="centent_body">
+					1. 首先我们要去官网下载 Nodejs 包。2. 然后安装软件。3. 安装完成之后我们要配置环境变量。
+				</div>
+			</div>
+			</li>
+		</ul>
+		<p class="clear"></p>
+	</div>
+</div>
+<% include footer.ejs %>
+<script type="text/template" id="moban">
+	<li>
+		<div class="item">
+			<div class="content_head">
+				<img class="userImg"  src="/avatar/{{=avatar}}" alt="用户图像" width="40" height="40"/>
+				<div class="userAndDate">
+				<div class="blogtitle"></div>
+				<div class="userName">{{=username}}</div>
+				<div class="postDate">{{= new Date(datetime).dateFormat("yyyy-MM-dd hh:mm") }}</div>
+				</div>
+				<p class="clear">
+				</p>
+			</div>
+			<div class="centent_body">
+				{{=content}}
+			</div>
+		</div>
+	</li>
+</script>
+
+
+<script type="text/javascript">
+	$(function(){
+	
+		var index = 0;
+		//轮展图切换 
+		$("#b_btn_mini").find("li").mouseover(function(){
+			// 控制小按钮选中
+			$(this).addClass("no").siblings().removeClass("no");
+			// 联动（图片和小按钮）
+			var _index = $(this).index();
+			index = _index;
+			$("#b_pic").find("li").eq(_index).fadeIn("slow").siblings().hide();
+			// 获取选中背景颜色，切换
+			var background = $(this).data("color");
+			$(this).parents(".b_bg").css("background",background);
+		});
+		
+		// 点击下一页
+		$(".next").click(function(){
+			index++;
+			var length = $("#b_pic").find("li").length;
+			if(index >= length){
+				index = 0;
+			}
+			// 联动背景颜色
+			var background = $(".b_btn").find("li").eq(index).data("color");
+			$(this).parents(".b_bg").css("background",background);
+			// 联动小按钮
+			$("#b_btn_mini").find("li").eq(index).addClass("no").siblings().removeClass("no");
+			// 联动图片
+			$("#b_pic").find("li").eq(index).fadeIn("slow").siblings().hide();
+		});
+
+		// 点击上一页
+		$(".pre").click(function(){
+			index--;
+			var length = $("#b_pic").find("li").length;
+			if(index < 0){
+				index = length - 1;
+			}
+			// 联动背景颜色
+			var background = $(".b_btn").find("li").eq(index).data("color");
+			$(this).parents(".b_bg").css("background",background);
+			// 联动小按钮
+			$("#b_btn_mini").find("li").eq(index).addClass("no").siblings().removeClass("no");
+			// 联动图片
+			$("#b_pic").find("li").eq(index).fadeIn("slow").siblings().hide();
+		});
+
+		// 自动切换
+		setInterval(function(){
+			index++;
+			var length = $("#b_pic").find("li").length;
+			if(index >= length){
+				index = 0;
+			}
+			// 联动背景颜色
+			var background = $(".b_btn").find("li").eq(index).data("color");
+			$(".b_bg").css("background",background);
+			// 联动小按钮
+			$("#b_btn_mini").find("li").eq(index).addClass("no").siblings().removeClass("no");
+			// 联动图片
+			$("#b_pic").find("li").eq(index).fadeIn("slow").siblings().hide();
+		},3000);
+	});
+	$("#submitLogin").click(function(){
+		$("#err").text("");
+		if($.trim($("#username").val())==""){
+			$("#err").show().text("请填写账号");
+			return;
+		}
+		if($.trim($("#passwd").val())==""){
+			$("#err").show().text("请填写密码");
+			return;
+		}
+		
+		$("#loginForm").submit();
+
+	})
+
+
+	var $quanbushuoshuo = $(".blog_list");
+	//得到模板函数
+	var compiled = _.template($("#moban").html());
+
+	getData(1,20);
+	//请求分页的说说信息
+	function getData(page,pagesize) {
+		//将现在的页面内容清除
+		$(".blog_list").html("");
+		$.ajax({
+			"url": "/getallshuoshuo?page=" + (page-1),
+			"type": "get",
+			"success": function (result) {
+				//result是一个数组
+				//console.log(Array.isArray(result));
+				iterator(0);
+				//迭代器
+				function iterator(i) {
+					if (i == result.length) {
+						//在这里书写请求完毕之后做的事情
+						return;  //不用继续迭代了
+					}
+					$.get("/getuserinfo?username=" + result[i].username, function (result2) {
+						//修改字典，给字典增加一项
+						result[i].avatar = result2.avatar;
+						//组装模板
+						var htmlstring = compiled(result[i]);
+						//添加DOM
+						$(".blog_list").append($(htmlstring));
+						iterator(i + 1);
+					});
+				}
+			}
+		});
+	  }
+
+    //文本框得到焦点，错误提示小时
+    $("input").focus(function () {
+        $("#cuowukuang").fadeOut();
+    });
+    //登陆按钮，登陆
+    $("#denglu").click(function () {
+        //注册按钮的事件，用ajax提交表单
+        $.post("/dologin", {
+            "username": $("#username").val(),
+            "password": $("#password").val()
+        }, function (result) {
+            if (result == "1") {
+                //注册成功
+                window.location = "/";
+            } else if (result == "-1") {
+                $("#cuowukuang").fadeIn();
+                $("#cuowukuang").html("用户名不存在");
+            } else if (result == "-2") {
+                $("#cuowukuang").fadeIn();
+                $("#cuowukuang").html("密码错误！");
+            }
+        });
+    });
+
+    //点击发布按钮之后做的事情
+    $("#fabiao").click(function () {
+        //注册按钮的事件，用ajax提交表单
+        $.post("/post", {
+            "content": $("#content").val()
+        }, function (result) {
+            if (result == "1") {
+                //注册成功
+                window.location.href="/";
+            } else {
+                alert("请联系管理员，发布失败");
+            }
+        });
+    });
+</script>
+</body>
+</html>

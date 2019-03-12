@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="/css/header.css" rel="stylesheet">
+	<style type="text/css">
+		body{background: #fefefe;}
+		ul li{list-style: none;}
+		a{text-decoration:none;}
+		.clear{clear:both;}
+		
+		h1{font-size: 18px;width:1024px;margin:20px auto;}
+
+		.caozuo{position: fixed;bottom: 0;left: 0;height: 60px;background-color: #ccc;width: 100%;}
+		.liaotian{width:960px;margin:10px auto;}
+		.caozuo input{font-size: 16px;width: 960px; height: 32px; border: 1px solid #74b7e6; text-indent:10px;}
+		.caozuo input:focus{outline:none;}
+		.liaotianList{width:1024px;margin:50px auto;background:#eee;margin-bottom:80px;overflow: auto;}
+		.liebiao{width: 95%; margin: 0px auto;}
+		.liaotianList li{margin:10px 0px;}
+		
+		.neirongBox{display: inline-block;padding:10px;border:1px solid #eee;border-radius:4px;background: #fefefe;}
+		.textalign_r{text-align:right;}
+		#yonghu{display:none;}
+	</style>
+</head>
+<body>
+<% include header.ejs %>
+	<div class="liaotianList">
+		<ul class="liebiao">
+			
+		</ul>
+	</div>
+
+	<div class="caozuo">
+		<div class="liaotian">
+		<input type="text" id="neirong" />
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		var socket = io();
+		$("#neirong").keydown(function(e){
+			if(e.keyCode == 13){
+				//把文本框的内容上传：
+				socket.emit("liaotian",{
+					"neirong" : $("#neirong").val(),
+					"ren" : $("#yonghu").html()
+				});
+				$(this).val("");
+			}
+		});
+
+		socket.on("liaotian",function(msg){
+			
+			if($("#yonghu").html() == msg.ren){
+				$(".liebiao").append("<li><div class='textalign_r'><span class='neirongBox'>"+ msg.neirong + "</span><b> ： " + msg.ren + "</b></div></li>");
+			}else{
+				$(".liebiao").append("<li><div><b>" + msg.ren + " ： </b><span class='neirongBox'>"+ msg.neirong + "</span></div></li>");
+			}
+			
+			scrollT();
+		});
+
+		function scrollT(){
+			var bodyHeight = $("html,body").height();
+			$("html,body").animate({
+				scrollTop:bodyHeight
+			},50);
+			
+		}
+	</script>
+</body>
+</html>

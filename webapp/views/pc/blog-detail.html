@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
+    <script type="text/javascript" src="/js/cookieUtil.js"></script>
+    <style type="text/css">
+        #typeContail{
+            display:none;
+        }
+        .blogList{width:60%;margin:10px auto;padding:5px;border:1px solid #ccc;}
+        .comments{border-top:1px solid #ddd;}
+        .commentDiv,.comments-list{width:60%;margin:10px auto;padding:5px;border:1px solid #ccc;}
+
+    </style>
+</head>
+<body>
+<div id="Ebody">
+    
+</div>
+<div class="commentDiv">
+    <input id="commentContent" type="text"/>
+    <button id="commentSubmit" value="评论" onclick="pushComment()">评论</button>
+    <button onclick="addFriend()" value="加好有友">加好友</button>
+</div>
+<div calss='comments'>评论:</div>
+<div class="comments-list">
+
+</div>
+
+<script type="text/javascript">
+$(function (){
+    var blogId = GetQueryString("blogId");
+
+    getBlogDetail(blogId);
+    getAllComments(blogId);
+})
+
+function pushComment(){
+
+    $.ajax({
+            url:"/doComment",
+            type:"POST",
+            data:getParentCommentParam(),
+            dataType:"json",
+            success:function(data){
+                if(data.code == 0){
+                    location.href = location.href; 
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function(){
+                alert("评论失败");
+            }
+        });
+}
+
+function getParentCommentParam(){
+    var params = {
+        content : $.trim($("#commentContent").val()),
+        record_id : $.trim($(".blogList").attr("blogId")),
+        comment_id : "",
+        parent_id : "",
+    }
+    return params;
+}
+
+/*获取地址栏参数*/
+function GetQueryString(name){
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r!=null)
+        return unescape(r[2]);
+    return "";
+}
+
+//获取所有博客类型
+function getBlogDetail(blogId){
+    $.ajax({
+        url:"/getBlogDetail",
+        type:"get",
+        data:{blogId:blogId},
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var arrRecord=data.extra;
+                for(var i = 0;i<arrRecord.length;i++){
+                	var recordHtml = "<div class='blogList' blogId='"+arrRecord[i].id+"'>";
+                   	recordHtml += "<div calss=''>用户名："+arrRecord[i].username+"</div>";
+                    recordHtml += "<div calss=''>标题："+arrRecord[i].title+"</div>";
+                    recordHtml += "<div calss=''>内容："+arrRecord[i].content+"</div>";
+                    recordHtml += "<div calss=''>分类："+arrRecord[i].tyle_id+"</div>";
+                    recordHtml += "<div calss=''>创建时间："+arrRecord[i].create_time+"</div>";
+	                recordHtml += "</div>";
+	                $("#Ebody").append(recordHtml);
+                    $("#Ebody").attr("username",arrRecord[i].username);
+                }
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert("获取博客失败");
+        }
+    });
+}
+
+function getAllComments(blogId){
+    $.ajax({
+        url:"/getAllComments",
+        type:"get",
+        data:{blogId:blogId},
+        dataType:"json",
+        success:function(data){
+            if(data.code == 0){
+                var arrRecord=data.extra;
+                for(var i = 0;i<arrRecord.length;i++){
+                    var recordHtml = "<div class='blogList' blogId='"+arrRecord[i].id+"'>";
+                    recordHtml += "<div calss=''>评论人："+arrRecord[i].username+"</div>";
+                    recordHtml += "<div calss=''>内容："+arrRecord[i].content+"</div>";
+                    recordHtml += "<div calss=''>时间："+arrRecord[i].create_time+"</div>";
+                    recordHtml += "</div>";
+                    $(".comments-list").append(recordHtml);
+                }
+                
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function(){
+            alert("获取博客失败");
+        }
+    });
+}
+
+
+function addFriend(){
+    var friend_id = $("#Ebody").attr("username");
+    $.ajax({
+            url:"/addFrient",
+            type:"POST",
+            data: {friend_id:friend_id},
+            dataType:"json",
+            success:function(data){
+                if(data.code == 0){
+                    location.href = "/friend-list";
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function(){
+                alert("评论失败");
+            }
+        });
+}
+
+</script>
+</body>
+</html>

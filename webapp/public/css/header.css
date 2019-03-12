@@ -1,0 +1,19 @@
+*{padding:0px;margin:0px;font-size:12px;color:#333;font-family:"微软雅黑";}
+body{background: #f5f5f5;}
+ul li{list-style: none;}
+a{text-decoration:none;}
+.clear{clear:both;}
+.header{height:50px;background:#333;}
+.head{width:1024px;margin:0px auto;}
+.header ul li{float:left;line-height:50px;width:100px;cursor:pointer;color:#999;font-size:18px;}
+.header ul li:hover{color:#fefefe;}
+.header ul li a{color: #999;font-size: 18px;}
+.header ul li a:hover{color:#fefefe;}
+.h_left{float:left;}
+.h_right{float:right;}
+.header .h_right li{text-align:right;width:60px;} 
+.header .h_right .loginout{width:55px;}
+.header .h_right .userInfo{width:126px;}
+.header .h_right .username{width:200px;}
+img{border:0;}
+.active{color:#f5f5f5;}

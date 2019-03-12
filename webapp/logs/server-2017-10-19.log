@@ -1,0 +1,6 @@
+[2017-10-19 20:39:00.209] [INFO] cheese - 127.0.0.1 - - "GET / HTTP/1.1" 200 236 "" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+[2017-10-19 20:39:00.232] [INFO] cheese - 127.0.0.1 - - "GET /js/jquery-1.11.1.min.js HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+[2017-10-19 20:39:01.258] [INFO] cheese - 127.0.0.1 - - "GET / HTTP/1.1" 304 - "" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+[2017-10-19 20:39:01.276] [INFO] cheese - 127.0.0.1 - - "GET /js/jquery-1.11.1.min.js HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+[2017-10-19 20:41:28.368] [INFO] cheese - 127.0.0.1 - - "GET / HTTP/1.1" 304 - "" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+[2017-10-19 20:41:28.388] [INFO] cheese - 127.0.0.1 - - "GET /js/jquery-1.11.1.min.js HTTP/1.1" 304 - "http://localhost:3002/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>登录</title>
+	<script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/js/md5.js"></script>
+	<script type="text/javascript" src="/js/cookieUtil.js"></script>
+</head>
+<body>
+<div id="Ebody">
+	账号：<input type="text" id="username"/>
+	<br>
+	密码：<input type="password" id="password"/>
+	<br>
+	<button id="login" value="登录">登录</button>
+	<p id="errorInfo"></p>
+
+</div>
+<script type="text/javascript">
+
+$("#login").click(function(){
+	var username = $.trim($("#username").val());
+	var password = $.trim($("#password").val());
+	password = hex_md5(password);
+	$.ajax({
+            url:"/dologin",
+            type:"POST",
+            data:{
+            	username:username,
+            	password:password
+            },
+            dataType:"json",
+            success:function(data){
+                if(data.code == 0){
+                	setCookie("token",data.token,"h12");
+                    window.location.href = "http://localhost:3002/";
+                }else{
+                    $("#errorInfo").text("登录失败");
+                }
+            },
+            error:function(){
+                $("#errorInfo").text("登录失败");
+            }
+        });
+})
+
+</script>
+</body>
+</html>
